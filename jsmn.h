@@ -462,6 +462,15 @@ JSMN_API void jsmn_init(jsmn_parser *parser) {
   parser->toksuper = -1;
 }
 
+
+JSMN_API int jsmn_streq(const char *json, jsmntok_t *tok, const char *s) {
+  if (tok->type == JSMN_STRING && strlen(s) == tok->end - tok->start &&
+      strncmp(json + tok->start, s, tok->end - tok->start) == 0) {
+    return 0;
+  }
+  return -1;
+}
+
 #endif /* JSMN_HEADER */
 
 #ifdef __cplusplus
